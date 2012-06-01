@@ -65,7 +65,7 @@ public class HDDMonitor
     }
 
     private static String getPrice()
-        throws IOException, ClientProtocolException, UnsupportedEncodingException
+        throws Exception
     {
         StringBuffer strBuf;
         InputStream instream;
