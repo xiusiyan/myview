@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -17,7 +19,11 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 /**
- * HDDMonitor
+ * 硬盘价格监控工具
+ * 
+ * 1.Spider
+ * 2.记录数据
+ * 3.Render
  *
  * @author xiusiyan
  * @version 1.0, 2012-6-1
@@ -30,6 +36,7 @@ public class HDDMonitor {
             try {
                 String price = HDDMonitor.getPrice();
                 System.out.println(price);
+                //TODO
 //                HDDMonitor.writeTxtFile(price);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -48,16 +55,27 @@ public class HDDMonitor {
         timer.schedule(new MyTask(), 1000L, 0x6ddd00L);
     }
 
+    /**
+     * 将数据写入文件
+     * 
+     * @param newStr
+     * @throws IOException
+     */
     public static void writeTxtFile(String newStr) throws IOException {
         FileWriter fw = new FileWriter("/var/www/price.csv", true);
         SimpleDateFormat timeFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String timeStr = timeFormater.format(new Date());
+        
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
+        String timeStr = timeFormater.format(cal.getTime());
         String line = (new StringBuilder(String.valueOf(timeStr))).append(",").append(newStr)
                 .append(System.getProperty("line.separator")).toString();
         fw.write(line, 0, line.length());
         fw.flush();
     }
 
+    /*
+     * 获得价格
+     */
     private static String getPrice()
         throws Exception
     {
