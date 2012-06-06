@@ -1,3 +1,5 @@
+package com.xiusiyan.myview;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -33,6 +35,10 @@ public class dbtest extends TestCase {
         super.tearDown();
     }
 
+    /**
+     * check db available
+     * @throws Exception
+     */
     public void testdb() throws Exception {
         Connection con = null;
         Statement st = null;
@@ -71,5 +77,9 @@ public class dbtest extends TestCase {
                 lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
+    }
+    
+    public void test_TopicTable() throws Exception {
+        
     }
 }
