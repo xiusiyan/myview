@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -55,6 +54,10 @@ public class HDDMonitor {
         timer.schedule(new MyTask(), 1000L, 0x6ddd00L);
     }
 
+    public static void insertDB(String newStr) throws IOException{
+        
+    }
+    
     /**
      * 将数据写入文件
      * 
