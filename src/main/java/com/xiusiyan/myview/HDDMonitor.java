@@ -40,6 +40,7 @@ public class HDDMonitor {
             try {
                 String price = HDDMonitor.getPrice();
                 System.out.println(price);
+                DAL.getInstance().insertData(id, topid, x_axis, y_axis);
                 logger.log(Level.INFO, "insert " + price);
                 //TODO
 //                HDDMonitor.writeTxtFile(price);
