@@ -9,11 +9,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import junit.runner.Version;
-
 /**
  * DAL
  *
@@ -53,7 +48,7 @@ public class DAL {
         st = con.createStatement();
     }
     
-    public void insertData(int id, int topid, String x_axis, String y_axis ) {
+    public void insertData(int id, int topid, String x_axis, double y_axis ) {
         StringBuffer strb = new StringBuffer();
         strb.append("insert into topic_data (id, topid, x_axis, y_axis) values ('");
         strb.append(id);

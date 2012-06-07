@@ -10,6 +10,8 @@ import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -29,12 +31,16 @@ import org.apache.http.impl.client.DefaultHttpClient;
  * @see
  */
 public class HDDMonitor {
+        
+    static Logger logger = Logger.getLogger(HDDMonitor.class.getName());
+    
     static class MyTask extends TimerTask {
 
         public void run() {
             try {
                 String price = HDDMonitor.getPrice();
                 System.out.println(price);
+                logger.log(Level.INFO, "insert " + price);
                 //TODO
 //                HDDMonitor.writeTxtFile(price);
             } catch (Exception e) {

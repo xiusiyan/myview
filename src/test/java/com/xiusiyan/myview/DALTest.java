@@ -26,7 +26,7 @@ public class DALTest extends TestCase {
     }
     
     public void testInsertData(){
-        DAL.getInstance().insertData(1, 1, "a", "b");
+        DAL.getInstance().insertData(1, 1, "a", 699);
     }
 
 }
