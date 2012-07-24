@@ -39,8 +39,14 @@ public class HDDMonitor {
         public void run() {
             try {
                 String price = HDDMonitor.getPrice();
-                System.out.println(price);
-                DAL.getInstance().insertData(id, topid, x_axis, y_axis);
+                logger.log(Level.INFO, price);
+                
+                SimpleDateFormat timeFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
+                String timeStr = timeFormater.format(cal.getTime());
+
+                
+                DAL.getInstance().insertData(1, timeStr, Double.parseDouble(price) );
                 logger.log(Level.INFO, "insert " + price);
                 //TODO
 //                HDDMonitor.writeTxtFile(price);

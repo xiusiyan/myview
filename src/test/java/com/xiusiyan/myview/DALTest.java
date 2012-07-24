@@ -1,5 +1,7 @@
 package com.xiusiyan.myview;
 
+import java.util.List;
+
 import junit.framework.TestCase;
 
 /**
@@ -26,7 +28,15 @@ public class DALTest extends TestCase {
     }
     
     public void testInsertData(){
-        DAL.getInstance().insertData(1, 1, "a", 699);
+        DAL.getInstance().insertData(1, "a", 699);
+    }
+    
+    public void testGetTopics(){
+        List<TopicInfo> infos = DAL.getInstance().getTopics();
+        
+        for(TopicInfo info : infos){
+            System.out.println(info);
+        }
     }
 
 }

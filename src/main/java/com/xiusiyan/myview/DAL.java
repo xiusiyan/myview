@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,11 +49,9 @@ public class DAL {
         st = con.createStatement();
     }
     
-    public void insertData(int id, int topid, String x_axis, double y_axis ) {
+    public void insertData(int topid, String x_axis, double y_axis ) {
         StringBuffer strb = new StringBuffer();
-        strb.append("insert into topic_data (id, topid, x_axis, y_axis) values ('");
-        strb.append(id);
-        strb.append("','");
+        strb.append("insert into topic_data (topid, x_axis, y_axis) values ('");
         strb.append(topid);
         strb.append("','");
         strb.append(x_axis);
@@ -60,9 +59,9 @@ public class DAL {
         strb.append(y_axis);
         strb.append("')");
         
-        System.out.println(strb.toString());
         try {
-            st.executeUpdate(strb.toString());
+            int rt = st.executeUpdate(strb.toString());
+            logger.log(Level.INFO, String.valueOf(rt));
         } catch (Exception e) {
             logger.log(Level.WARNING, e.getMessage(),e);
         }finally{
@@ -76,12 +75,21 @@ public class DAL {
     }
     
     public List<TopicInfo> getTopics(){
+        
+        List<TopicInfo> list = new ArrayList<TopicInfo>();
+        
         try {
             
             rs = st.executeQuery("SELECT * from topic");
 
-            if (rs.next()) {
-                System.out.println(rs.getString(1));
+            while (rs.next()) {
+                TopicInfo info = new TopicInfo();
+                info.setId(rs.getInt(1));
+                info.setUrl(rs.getString(2));
+                info.setRegx(rs.getString(3));
+                info.setTitle(rs.getString(4));
+                
+                list.add(info);
             }
 
         } catch (SQLException ex) {
@@ -104,7 +112,7 @@ public class DAL {
             }
         }
         
-        return null;
+        return list;
     }
 
 }
