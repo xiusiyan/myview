@@ -8,9 +8,24 @@ package com.xiusiyan.myview;
  * @see
  */
 public class TopicInfo {
+    /**
+     * ID
+     */
     private int id;
+    
+    /**
+     * URL
+     */
     private String url;
+    
+    /**
+     * 匹配规则
+     */
     private String regx;
+    
+    /**
+     * 标题
+     */
     private String title;
     /**
      * @return the id
