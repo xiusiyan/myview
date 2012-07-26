@@ -12,6 +12,21 @@ public class TopicInfo {
     private String url;
     private String regx;
     private String title;
+    
+    
+    
+    /**
+     * @param id
+     * @param url
+     * @param regx
+     * @param title
+     */
+    public TopicInfo(int id, String url, String regx, String title) {
+        this.id = id;
+        this.url = url;
+        this.regx = regx;
+        this.title = title;
+    }
     /**
      * @return the id
      */

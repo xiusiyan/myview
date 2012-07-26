@@ -83,12 +83,8 @@ public class DAL {
             rs = st.executeQuery("SELECT * from topic");
 
             while (rs.next()) {
-                TopicInfo info = new TopicInfo();
-                info.setId(rs.getInt(1));
-                info.setUrl(rs.getString(2));
-                info.setRegx(rs.getString(3));
-                info.setTitle(rs.getString(4));
-                
+                TopicInfo info = new TopicInfo(rs.getInt("id"), rs.getString("url"), rs.getString("regx"), rs.getString("title"));
+
                 list.add(info);
             }
 
