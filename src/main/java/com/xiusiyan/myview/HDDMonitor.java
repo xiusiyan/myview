@@ -45,11 +45,8 @@ public class HDDMonitor {
                 Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
                 String timeStr = timeFormater.format(cal.getTime());
 
-                
                 DAL.getInstance().insertData(1, timeStr, Double.parseDouble(price) );
                 logger.log(Level.INFO, "insert " + price);
-                //TODO
-//                HDDMonitor.writeTxtFile(price);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -65,10 +62,6 @@ public class HDDMonitor {
     public static void main(String args[]) throws Exception {
         Timer timer = new Timer();
         timer.schedule(new MyTask(), 1000L, 0x6ddd00L);
-    }
-
-    public static void insertDB(String newStr) throws IOException{
-        
     }
     
     /**
@@ -108,8 +101,6 @@ public class HDDMonitor {
         {
             throw new RuntimeException("");
         }
-        
-
         
         String line = null;
         String tempStr = null;
