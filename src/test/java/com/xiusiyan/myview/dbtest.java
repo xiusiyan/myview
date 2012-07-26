@@ -185,4 +185,8 @@ public class dbtest extends TestCase {
             }
         }
     }
+    
+    public void test_chartDataTest() throws Exception{
+        
+    }
 }

@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,7 +48,6 @@ public class DAL {
     
     private DAL() throws Exception{
         con = DriverManager.getConnection(url, user, password);
-        st = con.createStatement();
     }
     
     public void insertData(int topid, String x_axis, double y_axis ) {
@@ -60,6 +61,7 @@ public class DAL {
         strb.append("')");
         
         try {
+            st = con.createStatement();
             int rt = st.executeUpdate(strb.toString());
             logger.log(Level.INFO, String.valueOf(rt));
         } catch (Exception e) {
@@ -79,7 +81,7 @@ public class DAL {
         List<TopicInfo> list = new ArrayList<TopicInfo>();
         
         try {
-            
+            st  =con.createStatement();
             rs = st.executeQuery("SELECT * from topic");
 
             while (rs.next()) {
@@ -98,9 +100,9 @@ public class DAL {
                 if (st != null) {
                     st.close();
                 }
-                if (con != null) {
-                    con.close();
-                }
+//                if (con != null) {
+//                    con.close();
+//                }
 
             } catch (SQLException ex) {
 
@@ -111,4 +113,50 @@ public class DAL {
         return list;
     }
 
+    public String getChartData(){
+        StringBuffer buff = new StringBuffer();
+        
+        try {
+            st  =con.createStatement();
+            rs = st.executeQuery("select * from topic_data order by create_time;");
+
+            
+            while (rs.next()) {
+                String x = rs.getString("x_axis");
+                String y = rs.getString("y_axis");
+                //parse x
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date d = sdf.parse(x);
+
+                SimpleDateFormat formater = new SimpleDateFormat("MM-dd HH");               
+                
+                buff.append("['");
+                buff.append(formater.format(d));
+                buff.append("', ");
+                buff.append(y);
+                buff.append("],\n");
+            }            
+
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+//                if (con != null) {
+//                    con.close();
+//                }
+
+            } catch (SQLException ex) {
+
+                logger.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        }
+
+        return  buff.substring(0, buff.length()-2);
+    }
 }

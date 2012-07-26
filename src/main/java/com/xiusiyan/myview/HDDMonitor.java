@@ -47,6 +47,8 @@ public class HDDMonitor {
 
                 DAL.getInstance().insertData(1, timeStr, Double.parseDouble(price) );
                 logger.log(Level.INFO, "insert " + price);
+                
+                writeTxtFile();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -70,15 +72,39 @@ public class HDDMonitor {
      * @param newStr
      * @throws IOException
      */
-    public static void writeTxtFile(String newStr) throws IOException {
-        FileWriter fw = new FileWriter("/var/www/price.csv", true);
-        SimpleDateFormat timeFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static void writeTxtFile() throws IOException {
+        FileWriter fw = new FileWriter("/var/www/index.html", false);
         
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
-        String timeStr = timeFormater.format(cal.getTime());
-        String line = (new StringBuilder(String.valueOf(timeStr))).append(",").append(newStr)
-                .append(System.getProperty("line.separator")).toString();
-        fw.write(line, 0, line.length());
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("<html>\n");
+        buffer.append("<head>\n");
+        buffer.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n");
+        buffer.append("    <script type=\"text/javascript\" src=\"https://www.google.com/jsapi\"></script>\n");
+        buffer.append("    <script type=\"text/javascript\">\n");
+        buffer.append("      google.load(\"visualization\", \"1\", {packages:[\"corechart\"]});\n");
+        buffer.append("      google.setOnLoadCallback(drawChart);\n");
+        buffer.append("      function drawChart() {\n");
+        buffer.append("        var data = google.visualization.arrayToDataTable([");
+        buffer.append("          ['时间', '价格'],");
+        buffer.append(DAL.getInstance().getChartData());
+        buffer.append("        ]);\n");
+        buffer.append("");
+        buffer.append("        var options = {\n");
+        buffer.append("          title: '西部数据 2TB 价格趋势'\n");
+        buffer.append("        };\n");
+        buffer.append("");
+        buffer.append("        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));\n");
+        buffer.append("        chart.draw(data, options);\n");
+        buffer.append("      }\n");
+        buffer.append("    </script>\n");
+        buffer.append("  </head>\n");
+        buffer.append("  <body>\n");
+        buffer.append("    <div id=\"chart_div\" style=\"width: 900px; height: 500px;\"></div>\n");
+        buffer.append("  </body>\n");
+        buffer.append("</html>\n");
+        
+
+        fw.write(buffer.toString(), 0, buffer.length());
         fw.flush();
     }
 
