@@ -45,7 +45,7 @@ public class HDDMonitor {
                 Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
                 String timeStr = timeFormater.format(cal.getTime());
 
-                DAL.getInstance().insertData(1, timeStr, Double.parseDouble(price) );
+                DalUtils.getInstance().insertData(1, timeStr, Double.parseDouble(price) );
                 logger.log(Level.INFO, "insert " + price);
                 
                 writeTxtFile();
@@ -86,7 +86,7 @@ public class HDDMonitor {
         buffer.append("      function drawChart() {\n");
         buffer.append("        var data = google.visualization.arrayToDataTable([");
         buffer.append("          ['时间', '价格'],");
-        buffer.append(DAL.getInstance().getChartData());
+        buffer.append(DalUtils.getInstance().getChartData());
         buffer.append("        ]);\n");
         buffer.append("");
         buffer.append("        var options = {\n");

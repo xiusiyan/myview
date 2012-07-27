@@ -19,9 +19,9 @@ import java.util.logging.Logger;
  * @version 1.0, 2012-6-7
  * @see
  */
-public class DAL {
+public class DalUtils {
     
-    static Logger logger = Logger.getLogger(DAL.class.getName());
+    static Logger logger = Logger.getLogger(DalUtils.class.getName());
     
     String url = "jdbc:mysql://xiusiyan.com:3306/myview";
     String user = "myview";
@@ -31,12 +31,12 @@ public class DAL {
     Statement st = null;
     ResultSet rs = null;
     
-    private static DAL instance = null;
+    private static DalUtils instance = null;
 
-    public static DAL getInstance(){
+    public static DalUtils getInstance(){
         if (instance == null) {
             try {
-                instance = new DAL();
+                instance = new DalUtils();
             } catch (Exception e) {
                 logger.log(Level.WARNING, e.getMessage(),e);
             }
@@ -46,7 +46,7 @@ public class DAL {
         return instance;
     }
     
-    private DAL() throws Exception{
+    private DalUtils() throws Exception{
         con = DriverManager.getConnection(url, user, password);
     }
     

@@ -41,7 +41,7 @@ public class UtilsTest extends TestCase {
         buffer.append("      function drawChart() {\n");
         buffer.append("        var data = google.visualization.arrayToDataTable([");
         buffer.append("          ['时间', '价格'],");
-        buffer.append(DAL.getInstance().getChartData());
+        buffer.append(DalUtils.getInstance().getChartData());
         buffer.append("        ]);\n");
         buffer.append("");
         buffer.append("        var options = {\n");
