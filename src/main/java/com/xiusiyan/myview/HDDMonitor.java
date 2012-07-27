@@ -99,7 +99,7 @@ public class HDDMonitor {
         buffer.append("    </script>\n");
         buffer.append("  </head>\n");
         buffer.append("  <body>\n");
-        buffer.append("    <div id=\"chart_div\" style=\"width: 900px; height: 500px;\"></div>\n");
+        buffer.append("    <div id=\"chart_div\" style=\"width: 100%; height: 500px;\"></div>\n");
         buffer.append("  </body>\n");
         buffer.append("</html>\n");
         
