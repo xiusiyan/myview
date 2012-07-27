@@ -85,7 +85,11 @@ public class DalUtils {
             rs = st.executeQuery("SELECT * from topic");
 
             while (rs.next()) {
-                TopicInfo info = new TopicInfo(rs.getInt("id"), rs.getString("url"), rs.getString("regx"), rs.getString("title"));
+                int id = rs.getInt("id");
+                String url = rs.getString("url");
+                String regx = rs.getString("regx");
+                String title = rs.getString("title");
+                TopicInfo info = new TopicInfo(id, url, regx, title);
 
                 list.add(info);
             }
@@ -113,6 +117,48 @@ public class DalUtils {
         return list;
     }
 
+    public TopicData getLastTopicData(){
+        
+        TopicData td = null;
+        
+        try {
+            st  =con.createStatement();
+            rs = st.executeQuery(" select * from topic_data where topid=1 order by id desc limit 1");
+
+            
+            if(rs.next()) {
+                int id = rs.getInt("id");
+                int topid = rs.getInt("topid");
+                String x = rs.getString("x_axis");
+                String y = rs.getString("y_axis");
+                Date createTime = rs.getDate("create_time");
+                
+                td = new TopicData(id,topid,x,y,createTime);
+            }            
+
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+//                if (con != null) {
+//                    con.close();
+//                }
+
+            } catch (SQLException ex) {
+
+                logger.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        }
+        
+        return td;
+    }
+    
     public String getChartData(){
         StringBuffer buff = new StringBuffer();
         

@@ -63,7 +63,7 @@ public class HDDMonitor {
 
     public static void main(String args[]) throws Exception {
         Timer timer = new Timer();
-        timer.schedule(new MyTask(), 1000L, 0x6ddd00L);
+        timer.schedule(new MyTask(), 1000L, 0x1499700L);
     }
     
     /**
