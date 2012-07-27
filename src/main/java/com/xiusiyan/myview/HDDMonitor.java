@@ -50,7 +50,7 @@ public class HDDMonitor {
                 
                 writeTxtFile();
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, e.getMessage());
             }
         }
 
