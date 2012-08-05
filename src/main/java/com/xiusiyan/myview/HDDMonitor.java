@@ -66,12 +66,6 @@ public class HDDMonitor {
         timer.schedule(new MyTask(), 1000L, 0x1499700L);
     }
     
-    /**
-     * 将数据写入文件
-     * 
-     * @param newStr
-     * @throws IOException
-     */
     public static void writeTxtFile() throws IOException {
         FileWriter fw = new FileWriter("/var/www/index.html", false);
         
