@@ -75,69 +75,64 @@ public class HDDMonitor {
     public static void writeTxtFile() throws IOException {
         FileWriter fw = new FileWriter("/var/www/index.html", false);
         
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("<html>\n");
-        buffer.append("<head>\n");
-        buffer.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n");
-        buffer.append("    <script type=\"text/javascript\" src=\"https://www.google.com/jsapi\"></script>\n");
-        buffer.append("    <script type=\"text/javascript\">\n");
-        buffer.append("      google.load(\"visualization\", \"1\", {packages:[\"corechart\"]});\n");
-        buffer.append("      google.setOnLoadCallback(drawChart);\n");
-        buffer.append("      function drawChart() {\n");
-        buffer.append("        var data = google.visualization.arrayToDataTable([");
-        buffer.append("          ['时间', '价格'],");
-        buffer.append(DalUtils.getInstance().getChartData());
-        buffer.append("        ]);\n");
-        buffer.append("");
-        buffer.append("        var options = {\n");
-        buffer.append("          title: '西部数据 2TB 价格趋势'\n");
-        buffer.append("        };\n");
-        buffer.append("");
-        buffer.append("        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));\n");
-        buffer.append("        chart.draw(data, options);\n");
-        buffer.append("      }\n");
-        buffer.append("    </script>\n");
-        buffer.append("  </head>\n");
-        buffer.append("  <body>\n");
-        buffer.append("    <div id=\"chart_div\" style=\"width: 100%; height: 500px;\"></div>\n");
-        buffer.append("  </body>\n");
-        buffer.append("</html>\n");
+        StringBuffer template = new StringBuffer();
+        template.append("<html>\n");
+        template.append("<head>\n");
+        template.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n");
+        template.append("    <script type=\"text/javascript\" src=\"https://www.google.com/jsapi\"></script>\n");
+        template.append("    <script type=\"text/javascript\">\n");
+        template.append("      google.load(\"visualization\", \"1\", {packages:[\"corechart\"]});\n");
+        template.append("      google.setOnLoadCallback(drawChart);\n");
+        template.append("      function drawChart() {\n");
+        template.append("        var data = google.visualization.arrayToDataTable([");
+        template.append("          ['时间', '价格'],");
+        template.append(DalUtils.getInstance().getChartData());
+        template.append("        ]);\n");
+        template.append("");
+        template.append("        var options = {\n");
+        template.append("          title: '西部数据 2TB 价格趋势'\n");
+        template.append("        };\n");
+        template.append("");
+        template.append("        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));\n");
+        template.append("        chart.draw(data, options);\n");
+        template.append("      }\n");
+        template.append("    </script>\n");
+        template.append("  </head>\n");
+        template.append("  <body>\n");
+        template.append("    <div id=\"chart_div\" style=\"width: 100%; height: 500px;\"></div>\n");
+        template.append("  </body>\n");
+        template.append("</html>\n");
         
 
-        fw.write(buffer.toString(), 0, buffer.length());
+        fw.write(template.toString(), 0, template.length());
         fw.flush();
     }
 
     /*
      * 获得价格
      */
-    private static String getPrice()
-        throws Exception
-    {
+    private static String getPrice() throws Exception {
         StringBuffer strBuf = new StringBuffer();
         InputStream instream;
         BufferedReader rd;
         HttpClient httpclient = new DefaultHttpClient();
-        
+
         HttpGet httpget = new HttpGet("http://item.taobao.com/item.htm?id=5981598150");
         HttpResponse response = httpclient.execute(httpget);
         HttpEntity entity = response.getEntity();
 
-        if(entity == null)
-        {
+        if (entity == null) {
             throw new RuntimeException("");
         }
-        
+
         String line = null;
         String tempStr = null;
-        
+
         instream = entity.getContent();
         rd = new BufferedReader(new InputStreamReader(instream, "GBK"));
-        
-        while((line = rd.readLine()) != null) 
-        {
-            if(line.indexOf("<strong id=\"J_StrPrice\" >") > 0)
-            {
+
+        while ((line = rd.readLine()) != null) {
+            if (line.indexOf("<strong id=\"J_StrPrice\" >") > 0) {
                 int startIndex = line.indexOf(">");
                 tempStr = line.substring(startIndex + 1);
                 int lastIndex = tempStr.indexOf("<");
@@ -148,7 +143,7 @@ public class HDDMonitor {
 
         instream.close();
         rd.close();
-        
+
         return strBuf.toString();
     }
 }

@@ -89,7 +89,8 @@ public class DalUtils {
                 String url = rs.getString("url");
                 String regx = rs.getString("regx");
                 String title = rs.getString("title");
-                TopicInfo info = new TopicInfo(id, url, regx, title);
+                String scheduler =rs.getString("Scheduler");
+                TopicInfo info = new TopicInfo(id, url, regx, title, scheduler);
 
                 list.add(info);
             }

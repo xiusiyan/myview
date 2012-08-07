@@ -15,7 +15,7 @@ public class TopicData {
     String x_axis;
     String y_axis;
     Date create_time;
-    
+
     /**
      * @param id
      * @param topid

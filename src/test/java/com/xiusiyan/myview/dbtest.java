@@ -99,13 +99,16 @@ public class dbtest extends TestCase {
             String url;
             String regx;
             String title;
+            String scheduler;
+            
             while(rs.next()) {
                 id = rs.getInt("id");
                 url = rs.getString("url");
                 regx = rs.getString("regx");
                 title = rs.getString("title");
+                scheduler = rs.getString("scheduler");
                 
-                TopicInfo topicInfo = new TopicInfo(id, url, regx, title);
+                TopicInfo topicInfo = new TopicInfo(id, url, regx, title, scheduler);
                 
                 System.out.println(topicInfo);
             }

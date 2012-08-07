@@ -28,6 +28,7 @@ public class TopicInfo {
      */
     private String title;
     
+    private String scheduler;
     
     
     /**
@@ -36,11 +37,12 @@ public class TopicInfo {
      * @param regx
      * @param title
      */
-    public TopicInfo(int id, String url, String regx, String title) {
+    public TopicInfo(int id, String url, String regx, String title, String scheduler) {
         this.id = id;
         this.url = url;
         this.regx = regx;
         this.title = title;
+        this.scheduler = scheduler;
     }
     /**
      * @return the id
@@ -95,7 +97,14 @@ public class TopicInfo {
      */
     @Override
     public String toString() {
-        return String.format("TopicInfo [id=%s, url=%s, regx=%s, title=%s]", this.id, this.url, this.regx, this.title);
+        return String.format("TopicInfo [id=%s, url=%s, regx=%s, title=%s, scheduler=%s]", this.id, this.url,
+                             this.regx, this.title, this.scheduler);
+    }
+    /**
+     * @return the scheduler
+     */
+    public String getScheduler() {
+        return this.scheduler;
     }
 
 }
