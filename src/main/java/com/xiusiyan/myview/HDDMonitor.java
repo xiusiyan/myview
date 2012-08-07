@@ -31,23 +31,23 @@ import org.apache.http.impl.client.DefaultHttpClient;
  * @see
  */
 public class HDDMonitor {
-        
+
     static Logger logger = Logger.getLogger(HDDMonitor.class.getName());
-    
+
     static class MyTask extends TimerTask {
 
         public void run() {
             try {
                 String price = HDDMonitor.getPrice();
                 logger.log(Level.INFO, price);
-                
+
                 SimpleDateFormat timeFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
                 String timeStr = timeFormater.format(cal.getTime());
 
-                DalUtils.getInstance().insertData(1, timeStr, Double.parseDouble(price) );
+                DalUtils.getInstance().insertData(1, timeStr, Double.parseDouble(price));
                 logger.log(Level.INFO, "insert " + price);
-                
+
                 writeTxtFile();
             } catch (Exception e) {
                 logger.log(Level.SEVERE, e.getMessage());
@@ -65,16 +65,10 @@ public class HDDMonitor {
         Timer timer = new Timer();
         timer.schedule(new MyTask(), 1000L, 0x1499700L);
     }
-    
-    /**
-     * 将数据写入文件
-     * 
-     * @param newStr
-     * @throws IOException
-     */
+
     public static void writeTxtFile() throws IOException {
         FileWriter fw = new FileWriter("/var/www/index.html", false);
-        
+
         StringBuffer template = new StringBuffer();
         template.append("<html>\n");
         template.append("<head>\n");
@@ -102,21 +96,16 @@ public class HDDMonitor {
         template.append("    <div id=\"chart_div\" style=\"width: 100%; height: 500px;\"></div>\n");
         template.append("  </body>\n");
         template.append("</html>\n");
-        
 
         fw.write(template.toString(), 0, template.length());
         fw.flush();
     }
 
-    /*
-     * 获得价格
-     */
     private static String getPrice() throws Exception {
         StringBuffer strBuf = new StringBuffer();
         InputStream instream;
         BufferedReader rd;
         HttpClient httpclient = new DefaultHttpClient();
-
         HttpGet httpget = new HttpGet("http://item.taobao.com/item.htm?id=5981598150");
         HttpResponse response = httpclient.execute(httpget);
         HttpEntity entity = response.getEntity();

@@ -11,7 +11,7 @@ import junit.framework.TestCase;
  * @version 1.0, 2012-6-7
  * @see
  */
-public class DALTest extends TestCase {
+public class DalTest extends TestCase {
 
     /* (non-Javadoc)
      * @see junit.framework.TestCase#setUp()

@@ -86,6 +86,7 @@ public class dbtest extends TestCase {
         Statement st = null;
         ResultSet rs = null;
 
+<<<<<<< HEAD
         String dburl = "jdbc:mysql://xiusiyan.com:3306/myview";
         String user = "myview";
         String password = "myview2012";
@@ -140,6 +141,8 @@ public class dbtest extends TestCase {
         Statement st = null;
         ResultSet rs = null;
 
+=======
+>>>>>>> changed
         String url = "jdbc:mysql://xiusiyan.com:3306/myview";
         String user = "myview";
         String password = "myview2012";
@@ -147,6 +150,7 @@ public class dbtest extends TestCase {
         try {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
+<<<<<<< HEAD
             rs = st.executeQuery("select * from topic_data;");
 
             int id;
@@ -165,6 +169,12 @@ public class dbtest extends TestCase {
                 TopicData topicData = new TopicData(id,topid,x_axis,y_axis,create_time);
                 
                 System.out.println(topicData);
+=======
+            rs = st.executeQuery("SELECT VERSION()");
+
+            if (rs.next()) {
+                System.out.println(rs.getString(1));
+>>>>>>> changed
             }
 
         } catch (SQLException ex) {
@@ -187,9 +197,12 @@ public class dbtest extends TestCase {
                 lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
+<<<<<<< HEAD
     }
     
     public void test_chartDataTest() throws Exception{
         
+=======
+>>>>>>> changed
     }
 }
