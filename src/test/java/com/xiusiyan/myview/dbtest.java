@@ -13,7 +13,6 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 import junit.runner.Version;
 
-
 /**
  * dbtest
  *
@@ -80,13 +79,12 @@ public class dbtest extends TestCase {
             }
         }
     }
-    
+
     public void test_TopicTable() throws Exception {
         Connection con = null;
         Statement st = null;
         ResultSet rs = null;
 
-<<<<<<< HEAD
         String dburl = "jdbc:mysql://xiusiyan.com:3306/myview";
         String user = "myview";
         String password = "myview2012";
@@ -101,16 +99,16 @@ public class dbtest extends TestCase {
             String regx;
             String title;
             String scheduler;
-            
-            while(rs.next()) {
+
+            while (rs.next()) {
                 id = rs.getInt("id");
                 url = rs.getString("url");
                 regx = rs.getString("regx");
                 title = rs.getString("title");
                 scheduler = rs.getString("scheduler");
-                
+
                 TopicInfo topicInfo = new TopicInfo(id, url, regx, title, scheduler);
-                
+
                 System.out.println(topicInfo);
             }
 
@@ -135,14 +133,12 @@ public class dbtest extends TestCase {
             }
         }
     }
-    
+
     public void test_TopicDataTable() throws Exception {
         Connection con = null;
         Statement st = null;
         ResultSet rs = null;
 
-=======
->>>>>>> changed
         String url = "jdbc:mysql://xiusiyan.com:3306/myview";
         String user = "myview";
         String password = "myview2012";
@@ -150,7 +146,6 @@ public class dbtest extends TestCase {
         try {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
-<<<<<<< HEAD
             rs = st.executeQuery("select * from topic_data;");
 
             int id;
@@ -158,25 +153,18 @@ public class dbtest extends TestCase {
             String x_axis;
             String y_axis;
             Date create_time;
-            
-            while(rs.next()) {
+
+            while (rs.next()) {
                 id = rs.getInt("id");
                 topid = rs.getInt("topid");
                 x_axis = rs.getString("x_axis");
                 y_axis = rs.getString("y_axis");
                 create_time = rs.getDate("create_time");
-                
-                TopicData topicData = new TopicData(id,topid,x_axis,y_axis,create_time);
-                
+
+                TopicData topicData = new TopicData(id, topid, x_axis, y_axis, create_time);
+
                 System.out.println(topicData);
-=======
-            rs = st.executeQuery("SELECT VERSION()");
-
-            if (rs.next()) {
-                System.out.println(rs.getString(1));
->>>>>>> changed
             }
-
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(Version.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
@@ -197,12 +185,8 @@ public class dbtest extends TestCase {
                 lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
-<<<<<<< HEAD
     }
-    
-    public void test_chartDataTest() throws Exception{
-        
-=======
->>>>>>> changed
+
+    public void test_chartDataTest() throws Exception {
     }
 }

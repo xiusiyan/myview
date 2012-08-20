@@ -175,7 +175,7 @@ public class DalUtils {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date d = sdf.parse(x);
 
-                SimpleDateFormat formater = new SimpleDateFormat("MM-dd HH");               
+                SimpleDateFormat formater = new SimpleDateFormat("MM-dd");               
                 
                 buff.append("['");
                 buff.append(formater.format(d));

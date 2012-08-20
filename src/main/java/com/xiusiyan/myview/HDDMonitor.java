@@ -63,11 +63,11 @@ public class HDDMonitor {
 
     public static void main(String args[]) throws Exception {
         Timer timer = new Timer();
-        timer.schedule(new MyTask(), 1000L, 0x1499700L);
+        timer.schedule(new MyTask(), 1000L, 0x2932E00L);
     }
 
     public static void writeTxtFile() throws IOException {
-        FileWriter fw = new FileWriter("/var/www/index.html", false);
+        FileWriter fw = new FileWriter("index.html", false);
 
         StringBuffer template = new StringBuffer();
         template.append("<html>\n");
