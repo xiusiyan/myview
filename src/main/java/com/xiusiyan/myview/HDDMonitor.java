@@ -67,7 +67,7 @@ public class HDDMonitor {
     }
 
     public static void writeTxtFile() throws IOException {
-        FileWriter fw = new FileWriter("index.html", false);
+        FileWriter fw = new FileWriter("/var/www/index.html", false);
 
         StringBuffer template = new StringBuffer();
         template.append("<html>\n");

@@ -9,8 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 /**
  * DAL
@@ -38,7 +38,7 @@ public class DalUtils {
             try {
                 instance = new DalUtils();
             } catch (Exception e) {
-                logger.log(Level.WARNING, e.getMessage(),e);
+                logger.error(e.getMessage(),e);
             }
             
         }
@@ -47,7 +47,20 @@ public class DalUtils {
     }
     
     private DalUtils() throws Exception{
-        con = DriverManager.getConnection(url, user, password);
+        getConnection();
+    }
+
+    private Connection getConnection() {
+
+        try {
+            if (con == null || con.isValid(10)) {
+                con = DriverManager.getConnection(url, user, password);
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
+        }
+
+        return con;
     }
     
     public void insertData(int topid, String x_axis, double y_axis ) {
@@ -61,16 +74,16 @@ public class DalUtils {
         strb.append("')");
         
         try {
-            st = con.createStatement();
+            st = getConnection().createStatement();
             int rt = st.executeUpdate(strb.toString());
-            logger.log(Level.INFO, String.valueOf(rt));
+            logger.info(String.valueOf(rt));
         } catch (Exception e) {
-            logger.log(Level.WARNING, e.getMessage(),e);
+            logger.warn(e.getMessage(),e);
         }finally{
             try {
                 st.close();
             } catch (SQLException e) {
-                logger.log(Level.WARNING, e.getMessage(), e);
+                logger.warn(e.getMessage(), e);
             }
         }
         
@@ -81,7 +94,7 @@ public class DalUtils {
         List<TopicInfo> list = new ArrayList<TopicInfo>();
         
         try {
-            st  =con.createStatement();
+            st = getConnection().createStatement();
             rs = st.executeQuery("SELECT * from topic");
 
             while (rs.next()) {
@@ -96,7 +109,7 @@ public class DalUtils {
             }
 
         } catch (SQLException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            logger.error(ex.getMessage(), ex);
         } finally {
             try {
                 if (rs != null) {
@@ -111,7 +124,7 @@ public class DalUtils {
 
             } catch (SQLException ex) {
 
-                logger.log(Level.WARNING, ex.getMessage(), ex);
+                logger.warn(ex.getMessage(), ex);
             }
         }
         
@@ -123,7 +136,7 @@ public class DalUtils {
         TopicData td = null;
         
         try {
-            st  =con.createStatement();
+            st = getConnection().createStatement();
             rs = st.executeQuery(" select * from topic_data where topid=1 order by id desc limit 1");
 
             
@@ -138,7 +151,7 @@ public class DalUtils {
             }            
 
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            logger.error(ex.getMessage(), ex);
         } finally {
             try {
                 if (rs != null) {
@@ -153,7 +166,7 @@ public class DalUtils {
 
             } catch (SQLException ex) {
 
-                logger.log(Level.WARNING, ex.getMessage(), ex);
+                logger.error( ex.getMessage(), ex);
             }
         }
         
@@ -164,7 +177,7 @@ public class DalUtils {
         StringBuffer buff = new StringBuffer();
         
         try {
-            st  =con.createStatement();
+            st = getConnection().createStatement();
             rs = st.executeQuery("select * from topic_data order by create_time;");
 
             
@@ -185,7 +198,7 @@ public class DalUtils {
             }            
 
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            logger.error( ex.getMessage(), ex);
         } finally {
             try {
                 if (rs != null) {
@@ -199,8 +212,7 @@ public class DalUtils {
 //                }
 
             } catch (SQLException ex) {
-
-                logger.log(Level.WARNING, ex.getMessage(), ex);
+                logger.warn( ex.getMessage(), ex);
             }
         }
 
