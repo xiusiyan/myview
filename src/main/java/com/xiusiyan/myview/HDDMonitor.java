@@ -10,14 +10,13 @@ import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.log4j.Logger;
 
 /**
  * 硬盘价格监控工具
@@ -39,18 +38,18 @@ public class HDDMonitor {
         public void run() {
             try {
                 String price = HDDMonitor.getPrice();
-                logger.log(Level.INFO, price);
+                logger.info("price=" + price);
 
                 SimpleDateFormat timeFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
                 String timeStr = timeFormater.format(cal.getTime());
 
                 DalUtils.getInstance().insertData(1, timeStr, Double.parseDouble(price));
-                logger.log(Level.INFO, "insert " + price);
+                logger.info("insert " + price);
 
                 writeTxtFile();
             } catch (Exception e) {
-                logger.log(Level.SEVERE, e.getMessage());
+                logger.error(e.getMessage(), e);
             }
         }
 
@@ -99,6 +98,8 @@ public class HDDMonitor {
 
         fw.write(template.toString(), 0, template.length());
         fw.flush();
+        
+        logger.info("build index.html.");
     }
 
     private static String getPrice() throws Exception {
