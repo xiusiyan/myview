@@ -27,9 +27,7 @@ public class DalUtils {
     String user = "myview";
     String password = "myview2012";
 
-    Connection con = null;
-    Statement st = null;
-    ResultSet rs = null;
+
     
     private static DalUtils instance = null;
 
@@ -47,23 +45,14 @@ public class DalUtils {
     }
     
     private DalUtils() throws Exception{
-        getConnection();
-    }
-
-    private Connection getConnection() {
-
-        try {
-            if (con == null || con.isValid(10)) {
-                con = DriverManager.getConnection(url, user, password);
-            }
-        } catch (SQLException e) {
-            logger.error(e.getMessage(),e);
-        }
-
-        return con;
     }
     
     public void insertData(int topid, String x_axis, double y_axis ) {
+        
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
+        
         StringBuffer strb = new StringBuffer();
         strb.append("insert into topic_data (topid, x_axis, y_axis) values ('");
         strb.append(topid);
@@ -74,7 +63,9 @@ public class DalUtils {
         strb.append("')");
         
         try {
-            st = getConnection().createStatement();
+            con = DriverManager.getConnection(url, user, password);
+            st = con.createStatement();
+            
             int rt = st.executeUpdate(strb.toString());
             logger.info(String.valueOf(rt));
         } catch (Exception e) {
@@ -91,10 +82,16 @@ public class DalUtils {
     
     public List<TopicInfo> getTopics(){
         
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
+        
         List<TopicInfo> list = new ArrayList<TopicInfo>();
         
         try {
-            st = getConnection().createStatement();
+            con = DriverManager.getConnection(url, user, password);
+            st = con.createStatement();
+
             rs = st.executeQuery("SELECT * from topic");
 
             while (rs.next()) {
@@ -111,34 +108,42 @@ public class DalUtils {
         } catch (SQLException ex) {
             logger.error(ex.getMessage(), ex);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (st != null) {
-                    st.close();
-                }
-//                if (con != null) {
-//                    con.close();
-//                }
-
-            } catch (SQLException ex) {
-
-                logger.warn(ex.getMessage(), ex);
-            }
+            clear(st, rs, con);
         }
         
         return list;
     }
 
+    private void clear(Statement st, ResultSet rs, Connection con) {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (st != null) {
+                st.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        } catch (SQLException ex) {
+
+            logger.warn(ex.getMessage(), ex);
+        }
+    }
+
     public TopicData getLastTopicData(){
+        
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
         
         TopicData td = null;
         
         try {
-            st = getConnection().createStatement();
+            con = DriverManager.getConnection(url, user, password);
+            st = con.createStatement();
             rs = st.executeQuery(" select * from topic_data where topid=1 order by id desc limit 1");
-
             
             if(rs.next()) {
                 int id = rs.getInt("id");
@@ -153,21 +158,7 @@ public class DalUtils {
         } catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (st != null) {
-                    st.close();
-                }
-//                if (con != null) {
-//                    con.close();
-//                }
-
-            } catch (SQLException ex) {
-
-                logger.error( ex.getMessage(), ex);
-            }
+            clear(st, rs, con);
         }
         
         return td;
@@ -176,8 +167,13 @@ public class DalUtils {
     public String getChartData(){
         StringBuffer buff = new StringBuffer();
         
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;        
+        
         try {
-            st = getConnection().createStatement();
+            con = DriverManager.getConnection(url, user, password);
+            st = con.createStatement();
             rs = st.executeQuery("select * from topic_data order by create_time;");
 
             
@@ -200,20 +196,7 @@ public class DalUtils {
         } catch (Exception ex) {
             logger.error( ex.getMessage(), ex);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (st != null) {
-                    st.close();
-                }
-//                if (con != null) {
-//                    con.close();
-//                }
-
-            } catch (SQLException ex) {
-                logger.warn( ex.getMessage(), ex);
-            }
+            clear(st, rs, con);
         }
 
         return  buff.substring(0, buff.length()-2);
