@@ -79,7 +79,7 @@ public class HDDMonitor {
         template.append("      function drawChart() {\n");
         template.append("        var data = google.visualization.arrayToDataTable([");
         template.append("          ['时间', '价格'],");
-        template.append(DalUtils.getInstance().getChartData());
+        template.append(DalUtils.getInstance().getTopicData());
         template.append("        ]);\n");
         template.append("");
         template.append("        var options = {\n");

@@ -40,6 +40,6 @@ public class DalTest extends TestCase {
     }
 
     public void testGetChartData(){
-        System.out.println(DalUtils.getInstance().getChartData());
+        System.out.println(DalUtils.getInstance().getTopicData());
     }
 }

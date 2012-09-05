@@ -164,7 +164,43 @@ public class DalUtils {
         return td;
     }
     
-    public String getChartData(){
+    public List<TopicData> getTopicDataList(){
+        
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;        
+        
+        List<TopicData> tds = new ArrayList<TopicData>();
+        
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            st = con.createStatement();
+            rs = st.executeQuery("select * from topic_data order by create_time;");
+
+            
+            while (rs.next()) {
+                    int id = rs.getInt("id");
+                    int topid = rs.getInt("topid");
+                    String x = rs.getString("x_axis");
+                    String y = rs.getString("y_axis");
+                    Date createTime = rs.getDate("create_time");
+                    
+                    TopicData td = new TopicData(id,topid,x,y,createTime);
+                    
+                    tds.add(td);
+
+            }            
+
+        } catch (Exception ex) {
+            logger.error( ex.getMessage(), ex);
+        } finally {
+            clear(st, rs, con);
+        }
+
+        return  tds;
+    }
+    
+    public String getTopicData(){
         StringBuffer buff = new StringBuffer();
         
         Connection con = null;

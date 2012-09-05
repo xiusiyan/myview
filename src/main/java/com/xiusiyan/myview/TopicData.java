@@ -65,4 +65,15 @@ public class TopicData {
     public Date getCreate_time() {
         return this.create_time;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return String.format("TopicData [id=%s, topid=%s, x_axis=%s, y_axis=%s, create_time=%s]", this.id, this.topid,
+                             this.x_axis, this.y_axis, this.create_time);
+    }
+    
+    
 }
