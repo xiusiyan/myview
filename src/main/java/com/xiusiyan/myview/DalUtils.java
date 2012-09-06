@@ -67,7 +67,7 @@ public class DalUtils {
             st = con.createStatement();
             
             int rt = st.executeUpdate(strb.toString());
-            logger.info(String.valueOf(rt));
+            logger.info("insertData:" + String.valueOf(strb));
         } catch (Exception e) {
             logger.warn(e.getMessage(),e);
         }finally{

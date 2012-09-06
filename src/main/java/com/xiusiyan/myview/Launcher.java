@@ -18,6 +18,7 @@ public class Launcher {
 	    for(TopicInfo c : topicList){
 	        System.out.println(c);
 	    }
+	    
 	    SchedulerManager.getInstance().start();
 	}
 }
