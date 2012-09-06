@@ -2,9 +2,15 @@ package com.xiusiyan.myview;
 
 import org.apache.log4j.Logger;
 
+import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
+import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
+
+import static org.quartz.JobBuilder.*;
+import static org.quartz.TriggerBuilder.*;
+import static org.quartz.SimpleScheduleBuilder.*;
 
 /**
  * SchedulerManager
@@ -38,7 +44,15 @@ public class SchedulerManager {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             
             scheduler.start();
+            
+            //add job
+            JobDetail job = newJob(DownloadJob.class).withIdentity("job1", "group1").build();
 
+            Trigger trigger = newTrigger().withIdentity("trigger1", "group1").startNow()
+                    .withSchedule(simpleSchedule().withIntervalInHours(24).repeatForever()).build();
+            
+            scheduler.scheduleJob(job, trigger);
+            
             scheduler.shutdown();
 
         } catch (SchedulerException se) {
