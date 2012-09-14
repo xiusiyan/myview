@@ -49,7 +49,10 @@ public class SchedulerManager {
             JobDetail job = newJob(DownloadJob.class).withIdentity("job1", "group1").build();
 
             Trigger trigger = newTrigger().withIdentity("trigger1", "group1").startNow()
-                    .withSchedule(simpleSchedule().withIntervalInHours(24).repeatForever()).build();
+                    .withSchedule(simpleSchedule().
+                                  withIntervalInMinutes(2).
+                                  repeatForever()).build();
+            
             
             scheduler.scheduleJob(job, trigger);
             

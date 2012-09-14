@@ -20,5 +20,14 @@ public class Launcher {
 	    }
 	    
 	    SchedulerManager.getInstance().start();
+	    Thread t = new Thread();
+	    t.run();
+	    
+	    try {
+            t.join();
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 }
