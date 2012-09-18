@@ -2,6 +2,8 @@ package com.xiusiyan.myview;
 
 import java.util.List;
 
+import com.xiusiyan.myview.util.DalUtils;
+
 import junit.framework.TestCase;
 
 /**

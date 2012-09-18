@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.xiusiyan.myview.util.DalUtils;
+
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import junit.runner.Version;

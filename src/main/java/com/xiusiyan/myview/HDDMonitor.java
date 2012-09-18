@@ -18,6 +18,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.log4j.Logger;
 
+import com.xiusiyan.myview.util.DalUtils;
+
 /**
  * 硬盘价格监控工具
  * 

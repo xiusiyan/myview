@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.xiusiyan.myview.util.DalUtils;
+
 public class Launcher {
     /**
     * Logger for this class
