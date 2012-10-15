@@ -124,12 +124,13 @@ public class HDDMonitor {
         rd = new BufferedReader(new InputStreamReader(instream, "GBK"));
 
         while ((line = rd.readLine()) != null) {
-            if (line.indexOf("<strong id=\"J_StrPrice\" >") > 0) {
+            if (line.indexOf("<strong id=\"J_StrPrice\" >") >= 0) {
                 int startIndex = line.indexOf(">");
                 tempStr = line.substring(startIndex + 1);
                 int lastIndex = tempStr.indexOf("<");
                 tempStr = tempStr.substring(0, lastIndex);
                 strBuf.append(tempStr);
+                break;
             }
         }
 
