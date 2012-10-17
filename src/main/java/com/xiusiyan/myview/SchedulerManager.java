@@ -50,14 +50,12 @@ public class SchedulerManager {
 
             Trigger trigger = newTrigger().withIdentity("trigger1", "group1").startNow()
                     .withSchedule(simpleSchedule().
-                                  withIntervalInMinutes(2).
+                                  withIntervalInSeconds(10).
                                   repeatForever()).build();
             
             
             scheduler.scheduleJob(job, trigger);
             
-            scheduler.shutdown();
-
         } catch (SchedulerException se) {
             LOGGER.error(se.getMessage(), se);
         }
