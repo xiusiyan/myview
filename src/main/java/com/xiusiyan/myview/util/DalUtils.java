@@ -54,7 +54,6 @@ public class DalUtils {
         
         Connection con = null;
         Statement st = null;
-        ResultSet rs = null;
         
         StringBuffer strb = new StringBuffer();
         strb.append("insert into topic_data (topid, x_axis, y_axis) values ('");
@@ -69,7 +68,7 @@ public class DalUtils {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
             
-            int rt = st.executeUpdate(strb.toString());
+            st.executeUpdate(strb.toString());
             logger.info("insertData:" + String.valueOf(strb));
         } catch (Exception e) {
             logger.warn(e.getMessage(),e);

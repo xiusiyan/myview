@@ -1,6 +1,5 @@
 package com.xiusiyan.myview;
 
-import java.io.IOException;
 
 /**
  * MyViewRuntimeException
@@ -10,5 +9,10 @@ import java.io.IOException;
  * @see
  */
 public class MyViewRuntimeException extends RuntimeException {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5921498140492710817L;
 
 }

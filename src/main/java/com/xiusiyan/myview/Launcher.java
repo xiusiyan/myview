@@ -28,8 +28,7 @@ public class Launcher {
 	    try {
             t.join();
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(),e);
         }
 	}
 }

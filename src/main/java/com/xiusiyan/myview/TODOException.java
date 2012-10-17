@@ -9,4 +9,9 @@ package com.xiusiyan.myview;
  */
 public class TODOException extends RuntimeException {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4317834521892545932L;
+
 }

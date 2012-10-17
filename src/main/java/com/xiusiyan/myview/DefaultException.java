@@ -1,6 +1,5 @@
 package com.xiusiyan.myview;
 
-import org.apache.commons.cli.ParseException;
 
 /**
  * DefaultException
@@ -10,6 +9,11 @@ import org.apache.commons.cli.ParseException;
  * @see
  */
 public class DefaultException extends MyViewRuntimeException {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 3773119262132236843L;
 
     /**
      * @param string
