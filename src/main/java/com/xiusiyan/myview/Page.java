@@ -8,18 +8,37 @@ package com.xiusiyan.myview;
  * @see
  */
 public class Page {
-    private String html;
+    protected String html;
+    protected String url;
     
-    public Page(String html){
+    public Page(String url, String html){
         this.html = html;
+        this.url = url;
     }
 
+    
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return String.format("Page [html=%s]", this.html);
+        return String.format("Page [url=%s]", this.url);
+    }
+
+
+    /**
+     * @return the html
+     */
+    public String getHtml() {
+        return this.html;
+    }
+
+
+    /**
+     * @return the url
+     */
+    public String getUrl() {
+        return this.url;
     }
 
 }

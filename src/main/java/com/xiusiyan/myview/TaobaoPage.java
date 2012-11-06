@@ -17,9 +17,20 @@ public class TaobaoPage extends Page {
     /**
      * @param html
      */
-    public TaobaoPage(String html) {
-        super(html);
-        // TODO Auto-generated constructor stub
+    public TaobaoPage(String url, String html) {
+        super(url, html);
+    }
+    
+    public BigDecimal getPrice(){
+        int beginIndex = html.indexOf("<strong id=\"J_StrPrice\" >");
+        
+        int endIndex = html.substring(beginIndex+25).indexOf("<")+beginIndex+25;
+        
+        String tmp = html.substring(beginIndex +25, endIndex);        
+        
+        BigDecimal bd = new BigDecimal(tmp);
+        
+        return bd;
     }
 
 }

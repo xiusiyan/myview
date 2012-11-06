@@ -20,16 +20,16 @@ import org.apache.log4j.Logger;
  * @version 1.0, Sep 6, 2012
  * @see
  */
-public class PageDownloader {
-    static Logger logger = Logger.getLogger(PageDownloader.class.getName());
+public class TaobaoPageDownloader {
+    static Logger logger = Logger.getLogger(TaobaoPageDownloader.class.getName());
         
-    private static PageDownloader instance = null;
+    private static TaobaoPageDownloader instance = null;
 
-    public static PageDownloader getInstance(){
+    public static TaobaoPageDownloader getInstance(){
         
         if (instance == null) {
             try {
-                instance = new PageDownloader();
+                instance = new TaobaoPageDownloader();
             } catch (Exception e) {
                 logger.error(e.getMessage(),e);
             }
@@ -39,7 +39,7 @@ public class PageDownloader {
         return instance;
     }
 
-    Page download(String url) {
+    TaobaoPage download(String url) {
         StringBuffer strBuf = new StringBuffer();
         InputStream instream;
         BufferedReader rd;
@@ -68,6 +68,6 @@ public class PageDownloader {
             logger.error(e.getMessage(), e);
         }
         
-        return new Page(strBuf.toString());
+        return new TaobaoPage(url, strBuf.toString());
     }
 }

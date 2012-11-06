@@ -10,9 +10,6 @@ package com.xiusiyan.myview;
  */
 public class MyViewRuntimeException extends RuntimeException {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -5921498140492710817L;
 
 }

@@ -2,13 +2,18 @@ package com.xiusiyan.myview;
 
 import org.apache.log4j.Logger;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import com.xiusiyan.myview.util.DalUtils;
+import com.xiusiyan.myview.util.TemplateUtils;
 
 /**
  * DownloadJob
@@ -18,14 +23,9 @@ import com.xiusiyan.myview.util.DalUtils;
  * @see
  */
 public class DownloadJob implements Job {
-    /**
-    * Logger for this class
-    */
+
     private static final Logger LOGGER = Logger.getLogger(DownloadJob.class);
 
-    /* (non-Javadoc)
-     * @see org.quartz.Job#execute(org.quartz.JobExecutionContext)
-     */
     public void execute(JobExecutionContext context) throws JobExecutionException {
         
         //get all topic list
@@ -33,17 +33,25 @@ public class DownloadJob implements Job {
         
         //download page      
         for(TopicInfo topic : topics){            
-            Page p = PageDownloader.getInstance().download(topic.getUrl());
+            TaobaoPage p = TaobaoPageDownloader.getInstance().download(topic.getUrl());
+            LOGGER.debug(topic);
             LOGGER.debug(p);
+            LOGGER.debug(p.getPrice());
+            
+            SimpleDateFormat timeFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
+            String timeStr = timeFormater.format(cal.getTime());
+
+            DalUtils.getInstance().insertData(topic.getId(), timeStr, p.getPrice().doubleValue());
+            LOGGER.debug("insert " + p.getPrice().doubleValue());
         }
         
-        //parser html
-        
-        
-        //insert data
-        
-        
         //build template chart html code
+        try {
+            TemplateUtils.writeTxtFile();
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(),e);
+        }
     }
 
 }

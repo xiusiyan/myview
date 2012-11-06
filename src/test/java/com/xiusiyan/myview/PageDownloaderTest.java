@@ -27,7 +27,7 @@ public class PageDownloaderTest extends TestCase {
     
     public void test_Download() throws Exception {
         String url = "http://item.taobao.com/item.htm?spm=a1z0k.1000775.1.23&id=16715799999";
-        Page page = PageDownloader.getInstance().download(url);
+        Page page = TaobaoPageDownloader.getInstance().download(url);
         
         System.out.println(page);
     }
