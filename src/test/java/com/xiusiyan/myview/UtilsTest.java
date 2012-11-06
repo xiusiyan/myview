@@ -3,6 +3,7 @@ package com.xiusiyan.myview;
 import java.util.List;
 
 import com.xiusiyan.myview.util.DalUtils;
+import com.xiusiyan.myview.util.TemplateUtils;
 
 import junit.framework.TestCase;
 
@@ -33,12 +34,14 @@ public class UtilsTest extends TestCase {
 //       System.out.println( Utils.pumpString("target/classes/template.txt"));
 //    }
     
-    public void testGetTopicDataList() throws Exception{
-        List<TopicData> tdList = DalUtils.getInstance().getTopicDataList();
+    public void test1() throws Exception{
+        List<TopicInfo> topics = DalUtils.getInstance().getTopics();
         
-        for(TopicData td : tdList){
-            System.out.println(td);
-        }
+        TemplateUtils.genHTML(topics);
+        
+        
         
     }
+    
+    
 }

@@ -46,9 +46,9 @@ public class DownloadJob implements Job {
             LOGGER.debug("insert " + p.getPrice().doubleValue());
         }
         
-        //build template chart html code
+        //build template chart html code        
         try {
-            TemplateUtils.writeTxtFile();
+            TemplateUtils.genHTML(topics);
         } catch (IOException e) {
             LOGGER.error(e.getMessage(),e);
         }

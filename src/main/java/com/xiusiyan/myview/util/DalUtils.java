@@ -202,7 +202,7 @@ public class DalUtils {
         return  tds;
     }
     
-    public String getTopicData(){
+    public String getTopicData(int topid){
         StringBuffer buff = new StringBuffer();
         
         Connection con = null;
@@ -212,7 +212,7 @@ public class DalUtils {
         try {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
-            rs = st.executeQuery("select * from topic_data order by create_time;");
+            rs = st.executeQuery("select * from topic_data where topid=" + topid + " order by create_time;");
 
             
             while (rs.next()) {
@@ -228,7 +228,7 @@ public class DalUtils {
                 buff.append(formater.format(d));
                 buff.append("', ");
                 buff.append(y);
-                buff.append("],\n");
+                buff.append("],");
             }            
 
         } catch (Exception ex) {
@@ -237,6 +237,6 @@ public class DalUtils {
             clear(st, rs, con);
         }
 
-        return  buff.substring(0, buff.length()-2);
+        return  buff.substring(0, buff.length()-1);
     }
 }
