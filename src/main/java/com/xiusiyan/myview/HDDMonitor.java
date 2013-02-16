@@ -1,24 +1,6 @@
 package com.xiusiyan.myview;
 
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.TimeZone;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.log4j.Logger;
-
-import com.xiusiyan.myview.util.DalUtils;
 
 /**
  * 硬盘价格监控工具
