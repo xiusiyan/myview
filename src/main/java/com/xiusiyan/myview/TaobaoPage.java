@@ -1,7 +1,10 @@
 package com.xiusiyan.myview;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 
 /**
  * TaobaoPage
@@ -22,11 +25,13 @@ public class TaobaoPage extends Page {
     }
     
     public BigDecimal getPrice(){
-        int beginIndex = html.indexOf("<strong id=\"J_StrPrice\" >");
+        Document doc = Jsoup.parse(html);
         
-        int endIndex = html.substring(beginIndex+25).indexOf("<")+beginIndex+25;
+        org.jsoup.nodes.Element element = doc.getElementById("J_StrPrice");
         
-        String tmp = html.substring(beginIndex +25, endIndex);        
+        element = element.getElementsByAttributeValue("class","tb-rmb-num").first();
+        
+        String tmp = element.text();  
         
         BigDecimal bd = new BigDecimal(tmp);
         
