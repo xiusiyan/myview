@@ -30,17 +30,10 @@ public class UtilsTest extends TestCase {
         super.tearDown();
     }
     
-//    public void test01() throws Exception{
-//       System.out.println( Utils.pumpString("target/classes/template.txt"));
-//    }
-    
     public void test1() throws Exception{
         List<TopicInfo> topics = DalUtils.getInstance().getTopics();
         
         TemplateUtils.genHTML(topics);
-        
-        
-        
     }
     
     
