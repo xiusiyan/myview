@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  * TaobaoPage
@@ -16,6 +17,7 @@ import org.jsoup.nodes.Document;
 public class TaobaoPage extends Page {
     
     BigDecimal price = new BigDecimal(-1);
+    boolean hasPromo = false;
 
     /**
      * @param html
@@ -24,18 +26,66 @@ public class TaobaoPage extends Page {
         super(url, html);
     }
     
-    public BigDecimal getPrice(){
+    public BigDecimal getPrice() {
+        Element ele = null;
+
         Document doc = Jsoup.parse(html);
         
-        org.jsoup.nodes.Element element = doc.getElementById("J_StrPrice");
+        BigDecimal promotion = getPromotion(doc);
         
-        element = element.getElementsByAttributeValue("class","tb-rmb-num").first();
+        if (promotion != null) {
+            hasPromo = true;
+        }else{
+            promotion = new BigDecimal(1000);
+        }
         
-        String tmp = element.text();  
+        ele = doc.getElementById("J_StrPrice");
+        ele = ele.getElementsByAttributeValue("class", "tb-rmb-num").first();
+
+
+        BigDecimal bd = new BigDecimal(ele.text());
+
+
+        return bd.multiply(promotion).divide(new BigDecimal(1000));
+
+    }
+
+    private BigDecimal getPromotion(Document doc){
+        Elements scriptEles = doc.getElementsByTag("Script");
+        String tmp = null;
         
-        BigDecimal bd = new BigDecimal(tmp);
+        for ( Element ele : scriptEles){
+            tmp = ele.data();
+            int beginIndex = tmp.indexOf("valLimitPromInfo");
+            int endIndex = 0;
+            
+            if(beginIndex > 0){
+                tmp = ele.data().substring(beginIndex);
+                beginIndex = tmp.indexOf("discount");
+                tmp = tmp.substring(beginIndex);
+                beginIndex = tmp.indexOf(":");
+                endIndex = tmp.indexOf(",");
+                tmp = tmp.substring(beginIndex+1, endIndex);
+                
+                return new BigDecimal(tmp.trim());
+            }
+        }
         
-        return bd;
+        return null;
+    }
+    
+    /**
+     * @param hasPromo the hasPromo to set
+     */
+    public void setHasPromo(boolean hasPromo) {
+        this.hasPromo = hasPromo;
+    }
+
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
 }
