@@ -50,7 +50,7 @@ public class SchedulerManager {
 
             Trigger trigger = newTrigger().withIdentity("trigger1", "group1").startNow()
                     .withSchedule(simpleSchedule().
-                                  withIntervalInHours(24).
+                                  withIntervalInHours(12).
                                   repeatForever()).build();
             
             
