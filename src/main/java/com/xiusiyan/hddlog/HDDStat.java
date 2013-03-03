@@ -27,7 +27,7 @@ public class HDDStat {
         initHDDstatInfo();
         
         writeLog(path);
-        Thread.sleep(10000);
+        Thread.sleep(60000);
         }
 //        //Debug
 //        for (HDDStatInfo hddInfo : stats) {
@@ -46,7 +46,7 @@ public class HDDStat {
         StringBuffer tmp = new StringBuffer();
 
         try {
-            System.out.println("file:" + path);
+//            System.out.println("file:" + path);
             f = new File(path);
 
             //Head Row
