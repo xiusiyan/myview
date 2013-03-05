@@ -33,7 +33,7 @@ public class TaobaoPage extends Page {
         
         BigDecimal promotion = getPromotion(doc);
         
-        if (promotion != null) {
+        if (promotion.intValue()>0) {
             hasPromo = true;
         }else{
             promotion = new BigDecimal(1000);
@@ -51,27 +51,46 @@ public class TaobaoPage extends Page {
     }
 
     private BigDecimal getPromotion(Document doc){
+
         Elements scriptEles = doc.getElementsByTag("Script");
         String tmp = null;
         
         for ( Element ele : scriptEles){
             tmp = ele.data();
-            int beginIndex = tmp.indexOf("valLimitPromInfo");
+            int beginIndex = 0;
             int endIndex = 0;
+            //valLimitPromInfo
+            {
+                beginIndex = tmp.indexOf("valLimitPromInfo");
+                
+
+                if (beginIndex > 0) {
+                    tmp = ele.data().substring(beginIndex);
+                    beginIndex = tmp.indexOf("discount");
+                    tmp = tmp.substring(beginIndex);
+                    beginIndex = tmp.indexOf(":");
+                    endIndex = tmp.indexOf(",");
+                    tmp = tmp.substring(beginIndex + 1, endIndex);
+
+                    return new BigDecimal(tmp.trim());
+                }
+            }
             
+            //valVipRate
+            beginIndex = tmp.indexOf("valVipRate");
+            endIndex = 0;
             if(beginIndex > 0){
                 tmp = ele.data().substring(beginIndex);
-                beginIndex = tmp.indexOf("discount");
-                tmp = tmp.substring(beginIndex);
                 beginIndex = tmp.indexOf(":");
                 endIndex = tmp.indexOf(",");
                 tmp = tmp.substring(beginIndex+1, endIndex);
+                return new BigDecimal(tmp.trim()).multiply(new BigDecimal(10));
                 
-                return new BigDecimal(tmp.trim());
             }
+            
         }
         
-        return null;
+        return new BigDecimal(0);
     }
     
     /**
