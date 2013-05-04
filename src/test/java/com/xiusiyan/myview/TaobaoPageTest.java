@@ -2,6 +2,8 @@ package com.xiusiyan.myview;
 
 import java.math.BigDecimal;
 
+import com.xiusiyan.myview.page.TaobaoPage;
+
 import junit.framework.TestCase;
 
 /**
@@ -32,7 +34,7 @@ public class TaobaoPageTest extends TestCase {
         TaobaoPage page = TaobaoPageDownloader.getInstance().download(url);
         
         BigDecimal price = page.getPrice();
-        System.out.println(price + ", hasPromo=" + page.hasPromo);
+        System.out.println(price + ", hasPromo=" + page.isPromo());
     }
     
     public void test_2() throws Exception {
@@ -40,7 +42,7 @@ public class TaobaoPageTest extends TestCase {
         TaobaoPage page = TaobaoPageDownloader.getInstance().download(url);
         
         BigDecimal price = page.getPrice();
-        System.out.println(price + ", hasPromo=" + page.hasPromo);
+        System.out.println(price + ", hasPromo=" + page.isPromo());
     }
     
     public void test_3() throws Exception {
@@ -48,7 +50,7 @@ public class TaobaoPageTest extends TestCase {
         TaobaoPage page = TaobaoPageDownloader.getInstance().download(url);
         
         BigDecimal price = page.getPrice();
-        System.out.println(price + ", hasPromo=" + page.hasPromo);
+        System.out.println(price + ", hasPromo=" + page.isPromo());
     }
     
 }

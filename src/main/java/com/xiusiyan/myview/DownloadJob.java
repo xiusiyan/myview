@@ -12,6 +12,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import com.xiusiyan.myview.page.TaobaoPage;
 import com.xiusiyan.myview.util.DalUtils;
 import com.xiusiyan.myview.util.TemplateUtils;
 

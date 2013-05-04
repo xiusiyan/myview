@@ -1,5 +1,7 @@
 package com.xiusiyan.myview;
 
+import com.xiusiyan.myview.page.Page;
+
 import junit.framework.TestCase;
 
 /**
